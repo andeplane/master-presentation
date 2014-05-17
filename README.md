@@ -25,7 +25,7 @@ Instructions (assuming you are in this directory):
 	- Start the webserver
 		grunt serve
 	- Open in browser
-		http://127.0.0.1:8000/foredrag.html
+		http://127.0.0.1:8000/index.html
 
 Instructions (one-liner):
 	cd ..; git clone https://github.com/hakimel/reveal.js.git; cd reveal.js; rsync -av --exclude=".*" --exclude="README.md" --exclude="index.html" * ../master-presentation; cd ../master-presentation; npm install; grunt serve

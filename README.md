@@ -9,7 +9,10 @@ Installation of prerequisities:
 	Ubuntu:
  		sudo apt-get install nodejs npm; sudo npm install -g grunt-cli
  	Mac:
- 		ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"; brew update; brew install node; npm install -g grunt-cli
+ 		Install Homebrew
+ 			ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"; brew update;
+ 		Install Node.js and Grunt
+ 			brew install node; npm install -g grunt-cli
 
 Instructions (assuming you are in this directory):
 	- Clone reveal.js in parent directiry

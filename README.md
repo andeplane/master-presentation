@@ -7,7 +7,7 @@ Prerequisites:
 
 Installation of prerequisities:
 	Ubuntu:
- 		sudo apt-get install nodejs npm; sudo npm install -g grunt-cli
+ 		sudo apt-get install nodejs npm; sudo npm install -g grunt-cli; 
  	Mac:
  		Install Homebrew
  			ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"; brew update;
@@ -23,12 +23,12 @@ Instructions (assuming you are in this directory):
 		rsync -av --exclude=".*" --exclude="README.md" --exclude="index.html" * ../master-presentation
 	- Change to master-presentation directory
 		cd ../master-presentation
-	- Install dependencies
-		npm install
+	- Install dependencies (sudo might be required)
+		sudo npm install
 	- Start the webserver
 		grunt serve
 	- Open in browser
 		http://127.0.0.1:8000/index.html
 
 Instructions (one-liner):
-	cd ..; git clone https://github.com/hakimel/reveal.js.git; cd reveal.js; rsync -av --exclude=".*" --exclude="README.md" --exclude="index.html" * ../master-presentation; cd ../master-presentation; npm install; grunt serve
+	cd ..; git clone https://github.com/hakimel/reveal.js.git; cd reveal.js; rsync -av --exclude=".*" --exclude="README.md" --exclude="index.html" * ../master-presentation; cd ../master-presentation; sudo npm install; grunt serve

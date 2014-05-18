@@ -14,6 +14,7 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
+		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
 
@@ -37,9 +38,8 @@
 	</head>
 
 	<body>
-
 		<div class="reveal">
-
+			<div id="header" class="animate">Header2</div>
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
@@ -52,7 +52,7 @@
 
 				<section>
 					<h3>Tredelt arbeid</h3>
-					<ul style="white-space: nowrap;">
+					<ul>
 						<li>Direct Simulation Monte Carlo (DSMC)</li>
 						<li>Molekylærdynamikk (MD)</li>
 						<li>Visualisering</li>
@@ -61,8 +61,112 @@
 
 				<section>
 					<h3>Presentasjonen</h3>
-					
+					<ul>
+						<li>Motivasjon (utvinning av skifer)</li>
+						<li>Strømning</li>
+						<li>Direct Simulation Monte Carlo (DSMC)</li>
+						<li>Molekylærdynamikk (MD)</li>
+						<li>Visualisering</li>
+						<li>Konklusjon</li>
+					</ul>
 				</section>
+
+				<section data-background="#043600">
+					<section>
+						<h3>Energi fra hydrokarboner</h3>
+					</section>
+
+					<section>
+						<h3>Utvinning av skifergass</h3>
+						<div class="white-container"><img src="img/shaleGasExtraction.png" style="border: 0px;"></div>
+					</section>
+				</section>
+
+				<section data-background="#043600">
+					<section>
+						<h3>Hva er en fluid?</h3>
+					</section>
+
+					<section>
+						<h3>Fluiddynamikk</h3>
+					</section>
+
+					<section>
+						<h3>Kontinuum</h3>
+					</section>
+
+					<section>
+						<h3>Navier-Stokes-likningene</h3>
+						<aside class="notes"> </aside>
+					</section>
+				</section>
+				<section data-background="#043600">
+					<section>
+						<h3>Darcy's lov</h3>
+						<img src="img/darcy.png">
+						<aside class="notes">Beskriv objektet, trykkgradient, netto kraft i en retning</aside>
+					</section>
+
+					<section>
+						<h3>Darcy's lov</h3>
+						$$
+							\begin{align}
+							Q &= \frac{k}{\mu}\frac{P_0 - P_L}{L}\\ \\ \\ \\ \\
+								Q &- \text{fluks}\\
+								k &- \text{permeabilitet}\\
+								\mu &- \text{viskositet}\\
+								P &- \text{trykk}
+							\end{align}
+						$$
+						<aside class="notes">Volumetrisk fluks, materialavhengig, væskeavhengig</aside>
+					</section>
+
+					<section>
+						<h3>Permeabilitet</h3>
+						$$
+							\begin{align}
+							k = Q\frac{\mu L}{\Delta P}
+							\end{align}
+						$$
+						<aside class="notes">Definisjonen av permeabilitet</aside>
+					</section>
+
+					<section>
+						<h3>Eksempel 1: strømning i sylinder</h3>
+						<img src="missing.png">
+						$$
+							\begin{align}
+								k = \frac{r^2}{8}
+							\end{align}
+						$$
+					</section>
+				</section>
+				<section data-background="#043600">
+					<section>
+						<h3>Strømning i porøse materialer</h3>
+						Definere porøst materiale
+					</section>
+
+					<section>
+						<h3>Porøsitet</h3>
+						$$
+							\phi = \frac{\text{Porevolum}}{\text{Totalt volum}} = \frac{V_P}{V}
+						$$
+						<aside class="notes">Totalt volum tilgjengelig for fluider</aside>
+					</section>
+
+					<section>
+						<h3>Eksempel 2: tilfeldig pakkede kuler</h3>
+						<img src="missing.png">
+						Carman-Kozeny-likningen
+						$$
+							\begin{align}
+								k = \frac{r^2}{9K}\frac{\phi}{(1 - \phi)^2}
+							\end{align}
+						$$
+					</section>
+				</section>
+
 			</div>
 
 		</div>
@@ -80,6 +184,11 @@
 					27: function() {}, // do something custom when ESC is pressed
 					32: function() {console.log("Space pressed")}, // don't do anything when SPACE is pressed (i.e. disable a reveal.js default binding)
 				},
+
+				math: {
+			        mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+			        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+			    },
 
 				controls: true,
 				progress: true,
@@ -101,10 +210,55 @@
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
 					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
-					{ src: 'socket.io/socket.io.js', async: true },
-        			{ src: 'plugin/notes-server/client.js', async: true }
+					{ src: 'plugin/math/math.js', async: true }
+					// { src: 'socket.io/socket.io.js', async: true },
+     //    			{ src: 'plugin/notes-server/client.js', async: true }
 				]
 			});
+
+			var updateHeader = function(index) {
+				var header = document.getElementById("header")
+				categories = {
+							  Introduksjon: {index: 3, color: "#001920"},
+							  Motivasjon: {index: 6, color: "#002002"},
+							  Strømning: {index: 9, color: "#002d01"},
+							  DSMC: {index: 12, color: "#001920"},
+							  MD: {index: 15, color: "#001920"},
+							  Visualisering: {index: 18, color: "#001920"},
+							  Konklusjon: {index: 21, color: "#001920"}
+							}
+
+				header.innerHTML = ""
+				var foundActive = false
+				var isFarLeft = true
+				for (var category in categories) {
+					var data = categories[category]
+					var farLeftClass = ""
+					if(isFarLeft) {
+						isFarLeft = false
+						farLeftClass = " farleft"
+					}
+
+					if(!foundActive && index < data.index) {
+						header.style["background-color"] = data.color
+						header.innerHTML += '<div class="active animate'+farLeftClass+'">'+category+'</div> '
+						foundActive = true
+					} else {
+						header.innerHTML += '<div class="inactive animate'+farLeftClass+'">'+category+'</div> '
+					}
+				}
+			}
+
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+
+				updateHeader(event.indexh)
+				console.log(event.indexh)
+				console.log(event.indexv)
+			} );
+
+			Reveal.addEventListener( 'ready', function( event ) {
+			    updateHeader(event.indexh)
+			} );
 
 		</script>
 

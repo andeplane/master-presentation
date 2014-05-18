@@ -64,6 +64,7 @@
 					<ul>
 						<li>Motivasjon (utvinning av skifer)</li>
 						<li>Strømning</li>
+						<li>Målene</li>
 						<li>Direct Simulation Monte Carlo (DSMC)</li>
 						<li>Molekylærdynamikk (MD)</li>
 						<li>Visualisering</li>
@@ -71,7 +72,7 @@
 					</ul>
 				</section>
 
-				<section data-background="#043600">
+				<section>
 					<section>
 						<h3>Energi fra hydrokarboner</h3>
 					</section>
@@ -82,7 +83,7 @@
 					</section>
 				</section>
 
-				<section data-background="#000f2f">
+				<section>
 					<section>
 						<h3>Hva er en fluid?</h3>
 					</section>
@@ -100,7 +101,7 @@
 						<aside class="notes"> </aside>
 					</section>
 				</section>
-				<section data-background="#000f2f">
+				<section>
 					<section>
 						<h3>Darcy's lov</h3>
 						<img  class="white-container" style="background-color: white; border: 0px;" src="img/darcy.png">
@@ -112,13 +113,27 @@
 						$$
 							\begin{align}
 							Q &= \frac{k}{\mu}\frac{P_0 - P_L}{L}\\ \\ \\ \\ \\
-								Q &- \text{fluks}\\
+								Q &- \text{volumetrisk flowrate}\\
 								k &- \text{permeabilitet}\\
 								\mu &- \text{viskositet}\\
 								P &- \text{trykk}
 							\end{align}
 						$$
 						<aside class="notes">Volumetrisk fluks, materialavhengig, væskeavhengig</aside>
+					</section>
+
+					<section>
+						<h3>Darcy's lov</h3>
+						$$
+							\begin{align}
+							Q &= -\sigma_D\nabla P\\
+							\sigma_D &= \frac{k}{\mu}\\
+							\\
+							k &= \text{materialavhengig}\\
+							\mu &= \text{fluidavhengig}
+							\end{align}
+						$$
+						<aside class="notes">Likner på Ohm's lov. Prinsipielt, samme materiale, gass/væske/whatever</aside>
 					</section>
 
 					<section>
@@ -141,7 +156,7 @@
 						$$
 					</section>
 				</section>
-				<section data-background="#000f2f">
+				<section>
 					<section>
 						<h3>Strømning i porøse materialer</h3>
 						Definere porøst materiale
@@ -170,7 +185,109 @@
 				</section>
 
 				<section>
+					<section>
+						<h3>Slip-hastighet</h3>
+						<img src="img/slip_length.png">
+					</section>
 
+					<section>
+						<h3>Slip-hastighet</h3>
+						$$
+							\begin{align}
+								v_\text{wall} &= \alpha\lambda \frac{\text{d}v}{\text{d}n} \qquad (\text{Maxwell}) \\ \\ \\
+								\lambda &- \text{midlere fri veilengde}\\
+								\alpha &- \text{konstant}
+							\end{align}
+						$$
+						<aside class="notes">Førsteordens pga førstederivert</aside>
+					</section>
+
+					<section>
+						<h3>Midlere fri veilengde</h3>
+						$$
+							\begin{align}
+								\lambda = \frac{m}{\sqrt{2}\pi d^2\rho_n}
+							\end{align}
+						$$
+					</section>
+					
+					<section>
+						<h3>Klinkenbergeffekten</h3>
+						$$
+							\begin{align}
+								k_a &= f_\text{Kl}k_\infty = \left(1 + 4\alpha\frac{\lambda}{L}\right)k_\infty\\ \\ \\ \\
+								k_a &- \text{Tilsynelatende permeabilitet}\\
+								k_\infty &- \text{Absolutt permeabilitet}
+							\end{align}
+						$$
+					</section>
+
+					<section>
+						<h3>Knudsentallet</h3>
+						$$
+							\begin{align}
+							\text{Kn} &= \frac{\lambda}{L}\\
+							k_a &= \left(1 + 4\alpha\text{Kn}\right)k_\infty
+							\end{align}
+						$$
+						<aside class="notes">Kollisjonsforhold</aside>
+					</section>
+
+					<section>
+						<h3>Knudsenkorreksjon</h3>
+						Anta høyereordens slip-hastighet
+						$$
+							\begin{align}
+							k_a &= f_\text{Kn}k_\infty = \left[1 + \alpha(\text{Kn})\text{Kn}\right]\left[1 + \frac{4\text{Kn}}{1 + \text{Kn}}\right]
+							\end{align}
+						$$
+						<aside class="notes">Alpha har samme funksjonsform som 4kn/(1+kn)</aside>
+					</section>
+
+					<section>
+						<h3>Knudsenkorreksjon</h3>
+						<img src="img/klinkenberg.png">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Kontinuumshypotesen</h3>
+
+					</section>
+				</section>
+
+				<section>
+					<section id="test">
+						<h3>Hovedmål</h3>
+						<ol>
+							<li>Utvikle parallellisert DSMC-kode for vilkårlig geometri</li>
+							<li>Utvikle parallellisert MD-kode for vilkårlig geometri</li>
+							<li>Utvikle egne visualiseringsverktøy</li>
+						</ol>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Direct Simulation Monte Carlo</h3>
+
+
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Visualisering</h3>
+						
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Konklusjon</h3>
+					</section>
+				</section>
 
 
 			</div>
@@ -226,9 +343,10 @@
 			var updateHeader = function(index) {
 				var header = document.getElementById("header")
 				categories = {
-							  Introduksjon: {index: 3, color: "#001920"},
+							  Introduksjon: {index: 2, color: "#001920"},
 							  Motivasjon: {index: 4, color: "#002002"},
-							  Strømning: {index: 7, color: "#000c25"},
+							  Strømning: {index: 8, color: "#000c25"},
+							  Mål: {index: 9, color: "#000c25"},
 							  DSMC: {index: 12, color: "#001920"},
 							  MD: {index: 15, color: "#001920"},
 							  Visualisering: {index: 18, color: "#001920"},
@@ -246,7 +364,7 @@
 						farLeftClass = " farleft"
 					}
 
-					if(!foundActive && index < data.index) {
+					if(!foundActive && index <= data.index) {
 						header.style["background-color"] = data.color
 						header.innerHTML += '<div class="active animate'+farLeftClass+'">'+category+'</div> '
 						foundActive = true
@@ -264,6 +382,7 @@
 			} );
 
 			Reveal.addEventListener( 'ready', function( event ) {
+				console.log(event)
 			    updateHeader(event.indexh)
 			} );
 

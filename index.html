@@ -16,7 +16,7 @@
 
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/moon.css" id="theme">
+		<link rel="stylesheet" href="css/theme/beige.css" id="theme">
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -82,7 +82,7 @@
 					</section>
 				</section>
 
-				<section data-background="#043600">
+				<section data-background="#000f2f">
 					<section>
 						<h3>Hva er en fluid?</h3>
 					</section>
@@ -100,10 +100,10 @@
 						<aside class="notes"> </aside>
 					</section>
 				</section>
-				<section data-background="#043600">
+				<section data-background="#000f2f">
 					<section>
 						<h3>Darcy's lov</h3>
-						<img src="img/darcy.png">
+						<img  class="white-container" style="background-color: white; border: 0px;" src="img/darcy.png">
 						<aside class="notes">Beskriv objektet, trykkgradient, netto kraft i en retning</aside>
 					</section>
 
@@ -141,7 +141,7 @@
 						$$
 					</section>
 				</section>
-				<section data-background="#043600">
+				<section data-background="#000f2f">
 					<section>
 						<h3>Strømning i porøse materialer</h3>
 						Definere porøst materiale
@@ -163,9 +163,15 @@
 							\begin{align}
 								k = \frac{r^2}{9K}\frac{\phi}{(1 - \phi)^2}
 							\end{align}
+							\\
+							K \approx 5
 						$$
 					</section>
 				</section>
+
+				<section>
+
+
 
 			</div>
 
@@ -194,6 +200,7 @@
 				progress: true,
 				history: true,
 				center: true,
+				slideNumber: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
@@ -220,8 +227,8 @@
 				var header = document.getElementById("header")
 				categories = {
 							  Introduksjon: {index: 3, color: "#001920"},
-							  Motivasjon: {index: 6, color: "#002002"},
-							  Strømning: {index: 9, color: "#002d01"},
+							  Motivasjon: {index: 4, color: "#002002"},
+							  Strømning: {index: 7, color: "#000c25"},
 							  DSMC: {index: 12, color: "#001920"},
 							  MD: {index: 15, color: "#001920"},
 							  Visualisering: {index: 18, color: "#001920"},

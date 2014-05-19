@@ -201,7 +201,7 @@
 
 				<section>
 					<section>
-						<h3>Slip-hastighet (Poiseuille flow)</h3>
+						<h3>Slip-hastighet</h3>
 						<img src="img/slip_length.png">
 						<aside class="notes">Utlede Darcy ved at slip er null, volum per tid er integralet</aside>
 					</section>
@@ -401,7 +401,7 @@
 							<li>M partikler, hver representerer N<sub>eff</sub> atomer</li>
 							<li>Tilstand bestemt av faserommet (<b><i>q</i></b>, <b><i>p</i></b>)</li>
 						</ul>
-						<aside class="notes">Anta lik masse til hver partikkel, periodisk rand</aside>
+						<aside class="notes">Anta lik masse til hver partikkel, argon, periodisk rand</aside>
 					</section>
 
 					<section>
@@ -425,8 +425,8 @@
 
 					<section>
 						<h3>Tidsutvikling - kollisjoner</h3>
-						<div data-fragment-index="1" class="fragment current-visible" style="position: absolute; width: 80%; height: auto; background-color: white;"> <img src="img/collisions.png"></div>
-						<div data-fragment-index="3" class="fragment current-visible" style="position: absolute; width: 80%; height: auto; background-color: white;"> <img style="width:60%; height: auto;" src="img/collision_cells.png"></div>
+						<div data-fragment-index="1" class="fragment current-visible" style="position: absolute; width: 100%; height: auto; background-color: white;"> <img src="img/collisions.png"></div>
+						<div data-fragment-index="3" class="fragment current-visible" style="position: absolute; width: 100%; height: auto; background-color: white;"> <img style="width:60%; height: auto;" src="img/collision_cells.png"></div>
 						<ul>
 							<li class="fragment" data-fragment-index="0">Antar hardsphere-partikler - O(N<sup>2</sup>)</li>
 							<li class="fragment" data-fragment-index="2">Deler inn i kollisjons-celler</li>
@@ -457,14 +457,129 @@
 						<h3>Overflatekollisjoner</h3>
 						<img class="stretch" src="img/wallColl.png"><br>
 						Må kjenne normalvektor og tangentvektorer
+						<aside class="notes">Flere modeller, jeg har brukt thermall wall pga best sammenlikningsgrunnlag</aside>
+					</section>
+
+					<section>
+						<h3>Overflatekollisjoner</h3>
+						$$
+						\begin{align}
+							P_n(v_n)\text{d}v_n &= \frac{m}{k_B T_w}v_ne^{-\frac{mv_n^2}{2k_B T_w}}\text{d}v_n\\
+							P_t(v_t)\text{d}v_t &= \sqrt{\frac{m}{2\pi k_B T_w}}e^{-\frac{mv_t^2}{2k_B T_w}}\text{d}v_n
+						\end{align}
+						$$
+						<aside class="notes">Glemmer innkommende hastighet</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Vilkårlige geometrier</h3>
+						<img src="img/packed_spheres.png">
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h3>Vilkårlige geometrier</h3>
+						Antar igjen at geometrien er beskrevet av en funksjon (vegg, true/false)
+						$$
+						\begin{align}
+							G : \mathbb{R}^3\rightarrow \{1,0\}
+						\end{align}
+						$$
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h3>Vilkårlige geometrier</h3>
+						<div data-fragment-index="1" class="fragment current-visible" style="position: absolute; width: 100%; height: auto; background-color: white;"> <img src="img/voxels.gif"></div>
+						<ul>
+							<li class="fragment" data-fragment-index="0">Representerer geometrien som voxler</li>
+							<li class="fragment" data-fragment-index="2">Kollisjonsdeteksjon er et raskt minne-lookup</li>
+						</ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h3>Vilkårlige geometrier</h3>
+						<ul>
+							<li>Normalvektorer bestemmes av de 26 nabovoxlene</li>
+						</ul>
+						<img class="stretch" src="img/normal_vectors.png">
+						<aside class="notes">Beregne massesenter for de 27 voxlene</aside>
+					</section>
+
+					<section>
+						<h3>Vilkårlige geometrier</h3>
+						<ul>
+							<li>Normalvektor <vector>n</vector> bestemmes av de 26 nabovoxlene</li>
+							<li>Tangentvektor <vector>t</vector><sub>1</sub> beregnes ved å</li>
+							<ul>
+								<li>Trekke tilfeldig enhetsvektor</li>
+								<li>Ortogonal på <vector>n</vector> ved å bruke Gram-Schmidt</li>
+							</ul>
+							<li>Tangentvektor <vector>t</vector><sub>2</sub> beregnes ved <vector>n</vector> &#10799; <vector>t</vector><sub>1</sub></li>
+						</ul>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h3>Tidsutvikling - flytting</h3>
+						<img src="img/collision_detection.png">
 						<aside class="notes"></aside>
 					</section>
 				</section>
 
 				<section>
 					<section>
-						<h3>Resultater</h3>
-						
+						<h3>Oppsummering så langt</h3>
+						<ul>
+							<li data-fragment-index="0" class="fragment">Molekylærdynamikk</li>
+							<ul data-fragment-index="0" class="fragment">
+								<li>Parallellisert</li>
+								<li>Vilkårlige geometrier</li>
+								<li>Kun argon</li>
+								<li>Systemstørrelse 10nm-100nm</li>
+							</ul>
+							<br>
+							<li data-fragment-index="1" class="fragment">Direct Simulation Monte Carlo</li>
+							<ul data-fragment-index="1" class="fragment">
+								<li>Parallellisert</li>
+								<li>Vilkårlige geometrier</li>
+								<li>Kun argon</li>
+								<li>Systemstørrelse 100nm-100&#956;m</li>
+							</ul>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Parallellisering - MD</h3>
+						<img src="img/parallelization_md.png">
+						<aside class="notes">Må regne krefter </aside>
+					</section>
+
+					<section>
+						<h3>Parallellisering - MD</h3>
+						<div data-fragment-index="1" class="fragment current-visible" style="position: absolute; width: 100%; height: auto; background-color: white;"> <img src="img/scalingMD.png"></div>
+						<ul>
+							<li>Strong scaling - konstant systemstørrelse, varierende antall prosessorer</li>
+							<li>Weak scaling - konstant systemstørrelse <i>per prosessor</i>, varierende antall prosessorer</li>
+						</ul>
+						<aside class="notes">Må regne krefter </aside>
+					</section>
+
+					<section>
+						<h3>Parallellisering - DSMC</h3>
+						<img src="img/scalingDSMC.png">
+						<aside class="notes">B</aside>
+					</section>
+
+					<section>
+						<h3>Hastighetsprofil - uendelige parallelle plater</h3>
+						<img src="img/validation_poiseuille.png">
+						<aside class="notes"></aside>
 					</section>
 				</section>
 
@@ -546,7 +661,7 @@
 							  Strømning: {index: 7, color: "#000c25"},
 							  Mål: {index: 8, color: "#000c25"},
 							  MD: {index: 11, color: "#001920"},
-							  DSMC: {index: 15, color: "#001920"},
+							  DSMC: {index: 14, color: "#001920"},
 							  Resultater: {index: 20, color: "#001920"},
 							  Visualisering: {index: 22, color: "#001920"},
 							  Konklusjon: {index: 25, color: "#001920"}

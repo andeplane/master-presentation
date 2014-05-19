@@ -112,7 +112,8 @@
 						<h3>Darcy's lov</h3>
 						$$
 							\begin{align}
-							Q &= \frac{k}{\mu}\frac{P_0 - P_L}{L}\\ \\ \\ \\ \\
+							Q &= A\frac{k}{\mu}\frac{P_0 - P_L}{L}\\ \\ \\ \\ \\
+								A &- \text{Tverrsnittareal}\\
 								Q &- \text{volumetrisk flowrate}\\
 								k &- \text{permeabilitet}\\
 								\mu &- \text{viskositet}\\
@@ -126,7 +127,7 @@
 						<h3>Darcy's lov</h3>
 						$$
 							\begin{align}
-							Q &= -\sigma_D\nabla P\\
+							Q &= -\sigma_DA\nabla P\\
 							\sigma_D &= \frac{k}{\mu}\\
 							\\
 							k &= \text{materialavhengig}\\
@@ -140,7 +141,7 @@
 						<h3>Permeabilitet</h3>
 						$$
 							\begin{align}
-							k = Q\frac{\mu L}{\Delta P}
+							k = Q\frac{\mu L}{A\Delta P}
 							\end{align}
 						$$
 						<aside class="notes">Definisjonen av permeabilitet</aside>
@@ -258,21 +259,230 @@
 				</section>
 
 				<section>
-					<section id="test">
+					<section>
 						<h3>Hovedmål</h3>
 						<ol>
-							<li>Utvikle parallellisert DSMC-kode for vilkårlig geometri</li>
-							<li>Utvikle parallellisert MD-kode for vilkårlig geometri</li>
-							<li>Utvikle egne visualiseringsverktøy</li>
+							<li>Utvikle MD-kode</li>
+							<li>Utvikle DSMC-kode</li>
+							<li>Utvikle visualiseringsverktøy</li>
+							<li>Studere hvordan permeabiliteten blir påvirket av slip-hastighet</li>
+						</ol>
+					</section>
+
+					<section>
+						<h3>MD- og DSMC-kode</h3>
+						<ol>
+							<li>Enkle å bruke</li>
+							<li>Parallelliserte</li>
+							<li>Vilkårlige geometrier</li>
+						</ol>
+					</section>
+
+					<section>
+						<h3>Visualisering</h3>
+						<ol>
+							<li>Effektiv</li>
+							<li>Enkel kamerastyring</li>
 						</ol>
 					</section>
 				</section>
 
 				<section>
 					<section>
+						<h3>Molekylærdynamikk</h3>
+						<ul>
+							<li>System med volum V</li>
+							<li>N atomer</li>
+							<li>$$\text{Faserommet} (\vec q, \vec p)$$</li>
+							<li>$$\vec F = -\nabla U(\vec q)$$</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Lennard-Jones</h3>
+						$$ U(r) = 4\epsilon\left[\left(\frac{\sigma}{r}\right)^{12} - \left(\frac{\sigma}{r}\right)^6\right]$$
+						<img class="stretch" src="img/lennard_jones.png">
+						<aside class="notes">r^-12 representerer pauli, r^-6 representerer van der waals</aside>
+					</section>
+
+					<section>
+						<h3>Tidsutvikling</h3>
+						Integrerer Newtons bevegelseslover med Velocity Verlet
+						$$
+							\begin{align}
+								\vec v(t + \Delta t/2) &= \vec v(t) + \frac{\vec F(t)}{m}\frac{\Delta t}{2}\\
+								\vec r(t + \Delta t) &= \vec r(t) + \vec v(t + \Delta t/2)\Delta t\\
+								\vec v(t + \Delta t) &= \vec v(t + \Delta t/2) + \frac{\vec F(t+\Delta t)}{m}\frac{\Delta t}{2}\\
+							\end{align}
+						$$
+						<aside class="notes">I prinsippet har vi alt</aside>
+					</section>
+
+					<section>
+						<h3>Periodiske randbetingelser</h3>
+						$$ r_i + L_i = r_i $$
+						<img class="stretch" src="img/periodic_boundary_conditions.png">
+						<aside class="notes">I prinsippet har vi alt</aside>
+					</section>
+
+					<section>
+						<h3>Fysiske størrelser</h3>
+						<ul>
+							$$
+							\begin{align}
+							E &= \left(\sum_{i=1}^N \frac{1}{2}m_iv_i^2\right) + U(\vec q)\\
+							T &= \frac{2E_k}{3Nk_B} \text{(ekvipartisjon)}\\
+							\rho_n &= \frac{N}{V}
+							\end{align}
+							$$
+						</ul>
+						<aside class="notes">Lokale varianter, instantan temperatur, nevn termostat</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Måle permeabilitet</h3>
+						$$\begin{align}k &= \frac{Q\mu L}{A\Delta P}\\ \\\\ \\\end{align}$$
+						$$\mu \text{ kan måles med en Green-Kubo-relasjon eller}\\
+						\text{regnes ut med kinetisk teori.}$$
+					</section>
+
+					<section>
+						<h3>Mangler ∆P</h3>
+						$$
+							\begin{align}
+							F &= \Delta y\Delta z\Delta P\\
+							F &= mg = \rho_m\Delta V g\\
+							g &= \frac{\Delta P}{\rho_m \Delta x}
+							\end{align}
+						$$
+						<img class="stretch" src="img/pressure_to_gravity.png">
+						<aside class="notes">g, gravity, delta x er L</aside>
+					</section>
+
+					<section>
+						<h3>Størrelse av trykkdifferanse</h3>
+						Ideell gass
+						$$
+							P_0 = \rho_n k_B T\\\\
+						$$
+						Velger ∆P &#x2248; 0.05P<sub>0</sub>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h3>Ufysisk oppførsel</h3>
+						<img class="stretch" src="img/gravity_problem.png" style="border: 0px;">
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h3>Måle permeabilitet</h3>
+						$$\begin{align}k &= \frac{Q\mu}{Ag\rho_m}\\ \\\\ \\\end{align}$$
+						<aside class="notes"></aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Vilkårlige geometrier</h3>
+						En fluid må<br><br><br>
+						<ol>
+							<li>være fanget i et subset av hele volumet</li>
+							<li class="fragment">realistiske interaksjoner med veggen</li>
+							<li class="fragment">bli tappet for energi
+						</ol>
+						<aside class="notes"></aside>
+					</section>
+
+					<section>
+						<h3>En enkel modell</h3>
+						Geometrien er beskrevet av en funksjon (vegg, true/false)
+						$$
+						\begin{align}
+							G : \mathbb{R}^3\rightarrow \{1,0\}
+						\end{align}
+						$$
+						<br>
+						Eksempel 2: sylinder med radius R i z-retning
+						$$G(x,y,z) = (x^2 + y^2 > R^2)$$
+						<aside class="notes">Et punkt, er den inne i veggen eller ikke</aside>
+					</section>
+
+					<section>
+						<h3>En enkel modell</h3>
+						Hvert atom <i>i</i> i veggen får i tillegg et<br>
+						harmonisk oscillator-potensial om et likevektspunkt q<sub>i</sub>
+						$$
+						\begin{align}
+							\vec F^\text{vegg}(\vec r_i) = -k(\vec r_i - \vec q_i) + \vec F_i
+						\end{align}
+						$$
+						<br>
+						<ul class="fragment">
+							<li>Realistiske krefter</li>
+							<li>Tillater vibrasjoner</li>
+							<li>Har en temperatur</li>
+							<li>Kan tømme for energi</li>
+						</ul>
+						<aside class="notes">Tillater vibrasjoner, kan lagre energi, den har en temperatur, vi kan draine energi med termostat.</aside>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Resultater</h3>
+						
+					</section>
+				</section>
+
+				<section>
+					<section>
 						<h3>Direct Simulation Monte Carlo</h3>
+						<ul>
+							<li>Stokastisk modell</li>
+							<li>System med volum V</li>
+							<li>M partikler, hver representerer N<sub>eff</sub> atomer</li>
+							<li>$$\text{Faserommet} (\vec q, \vec p)$$</li>
+						</ul>
+						<aside class="notes">Massen til hver partikkel.</aside>
+					</section>
 
+					<section>
+						<h3>Tidsutvikling</h3>
+						<ul>
+							<li>Deler opp tidssteg i to deler, flytting og kollisjoner</li>
+							<li>Krav på tidssteg: ∆t &#x3C; &#964;<sub>coll</sub></li>
+						</ul>
+						<br>
+						$$\tau_\text{coll} = \frac{\lambda}{\langle v \rangle} \propto \frac{1}{\sqrt T \rho_n}$$
+						<aside class="notes">TODO: eksempel på størrelse</aside>
+					</section>
 
+					<section>
+						<h3>Tidsutvikling - flytting</h3>
+						Bruker Eulermetoden<br><br>
+						$$\vec r_i(t+\Delta t) = \vec r_i(t) + \vec v_i(t)\Delta t$$
+						<aside class="notes">Overflatekollisjoner</aside>
+					</section>
+
+					<section>
+						<h3>Tidsutvikling - kollisjoner</h3>
+						<div data-fragment-index="1" class="fragment current-visible" style="position: absolute; width: 100%; height: auto; background-color: white;"> <img src="img/collisions.png"></div>
+						<ul>
+							<li class="fragment" data-fragment-index="0">Antar hardsphere-partikler - O(N<sup>2</sup>)</li>
+							<li class="fragment" data-fragment-index="2">Deler inn i kollisjons-celler</li>
+							<li class="fragment" data-fragment-index="3">Stokastiske, binære kollisjoner</li>
+							<li class="fragment" data-fragment-index="4">M<sub>coll</sub>(&#961;, ⟨v<sub>rel</sub>⟩, ∆t)
+						</ul>
+						<aside class="notes">Antar lav tetthet, binære kollisjoner</aside>
+					</section>
+
+					<section>
+						<h3>Tidsutvikling - kollisjoner</h3>
+						
+						<aside class="notes"></aside>
 					</section>
 				</section>
 
@@ -286,6 +496,12 @@
 				<section>
 					<section>
 						<h3>Konklusjon</h3>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Videre arbeid</h3>
 					</section>
 				</section>
 
@@ -347,8 +563,8 @@
 							  Motivasjon: {index: 4, color: "#002002"},
 							  Strømning: {index: 8, color: "#000c25"},
 							  Mål: {index: 9, color: "#000c25"},
-							  DSMC: {index: 12, color: "#001920"},
-							  MD: {index: 15, color: "#001920"},
+							  MD: {index: 12, color: "#001920"},
+							  DSMC: {index: 15, color: "#001920"},
 							  Visualisering: {index: 18, color: "#001920"},
 							  Konklusjon: {index: 21, color: "#001920"}
 							}
@@ -375,15 +591,13 @@
 			}
 
 			Reveal.addEventListener( 'slidechanged', function( event ) {
-
 				updateHeader(event.indexh)
 				console.log(event.indexh)
 				console.log(event.indexv)
 			} );
 
 			Reveal.addEventListener( 'ready', function( event ) {
-				console.log(event)
-			    updateHeader(event.indexh)
+				updateHeader(event.indexh)
 			} );
 
 		</script>
